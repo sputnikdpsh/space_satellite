@@ -1,22 +1,6 @@
 const fileService = require('../service/file-service');
 
 class FileController {
-    async upload (req, res, next){
-        try {
-            const file = req.file;
-
-            if (!file) {
-                return res.status(400).json({ error: 'Файл не был загружен' });
-            }
-            const filePath = await fileService.upload(file);
-            res.status(200).json({
-                message: 'Файл успешно загружен',
-                filePath
-            });
-        } catch (error) {
-            next(error);
-        }
-    }
 
     async uploadMultiple(req, res, next) {
         try {
