@@ -11,9 +11,13 @@ yarn-error.log*
 *.sublime-workspace
 
 # build
-dist/
-build/
-.cache/
+client/dist/
+client/build/
+client/.cache/
+server/dist/
+server/build/
+server/.cache/
+server/uploads/
 
 # cross-env
 *.DS_Store  # for macOS
@@ -28,13 +32,7 @@ Thumbs.db   # for WindowsS
 # testing
 /coverage
 
-# production
-/build
-
 # misc
 .env
-.DS_Store
+client/.DS_Store
 client/.env
-.env.development.local
-.env.test.local
-.env.production.local
