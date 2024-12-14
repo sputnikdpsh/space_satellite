@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const EventTypes = require('./EventTypes');
-const ClientLists = require('./ClientLists');
 const Users = require('./Users')
 
 module.exports = function (sequelize) {
@@ -43,15 +42,6 @@ module.exports = function (sequelize) {
                 model: EventTypes(sequelize),
                 key: 'event_type_id'
             }
-        },
-        event_clients_list_id: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            references: {
-                model: ClientLists(sequelize),
-                key: 'client_list_id'
-            },
-            onDelete: 'CASCADE'
         },
         event_creator: {
             type: Sequelize.INTEGER,

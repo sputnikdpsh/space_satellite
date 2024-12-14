@@ -18,18 +18,56 @@ class FileService {
         };
     }
 
-    async download(filename) {
-        const filePath = path.join(this.uploadDir, filename);
-        await fsp.access(filePath);
-        return fs.createReadStream(filePath);
+    async sendFile(res, category, directory, filename) {
+        try {
+            // Конструируем путь к файлу
+            const filePath = path.join(this.uploadDir, category, directory, filename);
+
+            // Проверяем существование файла
+            await fsp.access(filePath);
+
+            // Определяем MIME-тип файла по расширению
+            const ext = path.extname(filename).toLowerCase();
+            const mimeTypes = {
+                '.jpg': 'image/jpeg',
+                '.jpeg': 'image/jpeg',
+                '.png': 'image/png',
+                '.gif': 'image/gif',
+                '.webp': 'image/webp',
+                '.pdf': 'application/pdf',
+                '.txt': 'text/plain',
+            };
+            const contentType = mimeTypes[ext] || 'application/octet-stream';
+
+            // Устанавливаем заголовок Content-Type
+            res.setHeader('Content-Type', contentType);
+
+            // Передаём файл клиенту
+            const fileStream = fs.createReadStream(filePath);
+            fileStream.pipe(res);
+        } catch (error) {
+            throw error; // Прокидываем ошибку для обработки в контроллере
+        }
     }
 
-    async getFiles() {
+    async getFiles(directory) {
         try {
-            const files = await fsp.readdir(this.uploadDir);
-            return files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file)); // Только изображения
+            // Полный путь к указанной директории
+            const dirPath = path.join(this.uploadDir, directory);
+
+            // Проверяем, существует ли директория
+            await fsp.access(dirPath);
+
+            // Читаем файлы из директории
+            const files = await fsp.readdir(dirPath);
+
+            return files.filter(file => /\.(jpg|jpeg|png|gif|pdf|txt|webp)$/i.test(file)); // Возвращаем только допустимые файлы
         } catch (error) {
-            throw new Error('Ошибка при чтении директории');
+            if (error.code === 'ENOENT') {
+                throw new Error(`Директория "${directory}" не найдена`);
+            } else {
+                throw error;
+            }
         }
     }
 }

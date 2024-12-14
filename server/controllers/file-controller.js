@@ -1,4 +1,6 @@
 const fileService = require('../service/file-service');
+const path = require('path');
+const fs = require('fs');
 
 class FileController {
 
@@ -10,25 +12,19 @@ class FileController {
                 return res.status(400).json({ error: 'Файлы не были загружены' });
             }
 
-            const fileUrls = files.map(file => ({
-                id: file.filename,
-                url: `${req.protocol}://${req.get('host')}/api/download/${file.filename}`,
-            }));
-
             res.status(200).json({
                 message: 'Файлы успешно загружены',
-                files: fileUrls,
+                hashedDirectory: req.hashedDirectory
             });
         } catch (error) {
             next(error);
         }
     }
 
-    async download (req, res, next){
+    async sendFile (req, res, next){
         try {
-            const { filename } = req.params;
-            const fileStream = await fileService.download(filename);
-            fileStream.pipe(res);
+            const { category, directory, filename } = req.params;
+            await fileService.sendFile(res, category, directory, filename);
         } catch (error) {
             if (error.code === 'ENOENT') {
                 res.status(404).json({ error: 'Файл не найден' });
@@ -40,29 +36,38 @@ class FileController {
 
     async getFiles(req, res, next) {
         try {
-            const files = await fileService.getFiles();
-            res.status(200).json({ files });
-        } catch (error) {
-            next(error);
-        }
-    }
+            const hashedDirectory = req.headers['directory'];
 
-    async getGallery(req, res, next) {
-        try {
-            const files = await fileService.getFiles();
-            const fileUrls = files.map(file => {
-                const url = `${req.protocol}://${req.get('host')}/api/download/${file}`;
-                console.log(`Generated URL for file: ${file} -> ${url}`); // Логируем информацию
-                return {
-                    id: file,
-                    url
-                };
-            });
-            res.status(200).json({ gallery: fileUrls });
+            if (!hashedDirectory) {
+                return res.status(400).json({ error: 'Заголовок "hashed-directory" отсутствует' });
+            }
+
+            // Получаем список файлов в указанной директории
+            const files = await fileService.getFiles(hashedDirectory);
+
+            // Возвращаем ссылки на файлы
+            const fileUrls = files.map(file => ({
+                filename: file,
+                url: `${req.protocol}://${req.get('host')}/api/download/${hashedDirectory}/${file}`,
+            }));
+
+            res.status(200).json({ files: fileUrls });
         } catch (error) {
-            next(error);
+            if (error.message.includes('не найдена')) {
+                res.status(404).json({ error: error.message });
+            } else {
+                next(error);
+            }
         }
     }
 }
 
 module.exports = new FileController();
+
+// const fileUrls = files.map(file => ({
+//     id: file.filename,
+//     url: `${req.protocol}://${req.get('host')}/api/download/${req.headers['file-category']}/${req.hashedDirectory}/${file.filename}`
+// }));
+
+//fullDirectoryPath: req.fullDirectoryPath,
+//files: fileUrls
