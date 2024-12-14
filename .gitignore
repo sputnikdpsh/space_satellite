@@ -1,2 +1,40 @@
-#ide
-.idea
+# logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ide
+.idea/
+.vscode/
+*.sublime-workspace
+
+# build
+dist/
+build/
+.cache/
+
+# cross-env
+*.DS_Store  # for macOS
+Thumbs.db   # for WindowsS
+
+# dependencies
+/server/node_modules
+/client/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.env
+.DS_Store
+client/.env
+.env.development.local
+.env.test.local
+.env.production.local

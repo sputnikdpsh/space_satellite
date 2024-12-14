@@ -1,0 +1,52 @@
+version: "3.9"
+
+volumes:
+  production-data: {}
+  development-data: {}
+  testing-data: {}
+
+services:
+  db-production:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - production-data:/var/lib/postgresql/data
+    networks:
+      - db-network
+
+  db-development:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_DEV_USER}
+      POSTGRES_PASSWORD: ${DB_DEV_PASSWORD}
+      POSTGRES_DB: ${DB_DEV_NAME}
+    ports:
+      - "${DB_DEV_PORT}:5432"
+    volumes:
+      - development-data:/var/lib/postgresql/data
+    networks:
+      - db-network
+
+  db-testing:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_TEST_USER}
+      POSTGRES_PASSWORD: ${DB_TEST_PASSWORD}
+      POSTGRES_DB: ${DB_TEST_NAME}
+    ports:
+      - "${DB_TEST_PORT}:5432"
+    volumes:
+      - testing-data:/var/lib/postgresql/data
+    networks:
+      - db-network
+
+networks:
+  db-network:
