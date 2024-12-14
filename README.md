@@ -2,7 +2,7 @@
 
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Данный проект предназначен для организации [ДПШ](https://chel-dpsh.ru/).
 
 ## Available Scripts
 
