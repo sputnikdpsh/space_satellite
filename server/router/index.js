@@ -5,7 +5,6 @@ const fileController = require('../controllers/file-controller');
 const eventController = require('../controllers/event-controller');
 const { body } = require('express-validator');
 const authMiddleware = require('../middlewares/auth-middleware');
-const multer = require('multer');
 const upload = require('../utils/multer');
 
 router.post('/registration',
@@ -20,9 +19,8 @@ router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, userController.getUsers);
 
 router.post('/upload', upload.array('files', 10), fileController.uploadMultiple);
-router.get('/download/:filename', fileController.download);
-router.get('/files', fileController.getFiles);
-router.get('/gallery', fileController.getGallery);
+router.get('/download/:category/:directory/:filename', fileController.sendFile);
+router.get('/get-files', fileController.getFiles);
 
 router.post('/createEvent', eventController.createEvent);
 

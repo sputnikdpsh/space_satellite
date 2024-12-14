@@ -9,7 +9,7 @@ const LinksRoute = () => {
             <Route path="/" element={<Home/>} />
             <Route path="/about" element={<About/>} />
             <Route path="/events" element={<Events/>} />
-            <Route path="/gallery" element={<Gallery/>} />
+            <Route path="/gallery" element={<Gallery directory="events/97aa8e93e1c4d2325a98f2b6c85ca978"/>} />
             <Route path="/news" element={<News/>} />
             <Route path="/satellite" element={<Satellite/>} />
             <Route path="/events/:id" element={<EventDetails />} />
