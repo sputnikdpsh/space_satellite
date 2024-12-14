@@ -24,7 +24,7 @@ app.use('/api', router);
 app.use(errorMiddleware);
 
 const start = async () => {
-    database.sequelize.sync( { force: true }).then(result=>{
+    database.sequelize.sync( { alter: true }).then(result=>{
         console.log("Database synchronized successfully.");
         app.listen(PORT, () => console.log(`Server is started on ${PORT} port`));
     })
