@@ -19,9 +19,7 @@ router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, userController.getUsers);
 
 router.post('/upload', upload.array('files', 10), fileController.uploadMultiple);
-router.get('/download/:category/:directory/:filename', fileController.sendFile);
 router.get('/get-files', fileController.getFiles);
 
-router.post('/createEvent', eventController.createEvent);
-
+router.post('/createEvent',upload.array('files', 10), eventController.createEvent);
 module.exports = router;
