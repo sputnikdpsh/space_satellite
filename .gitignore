@@ -1,38 +1,10 @@
-# logs
-*.log
-logs/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# ide
-.idea/
-.vscode/
-*.sublime-workspace
-
-# build
-client/dist/
-client/build/
-client/.cache/
-server/dist/
-server/build/
-server/.cache/
-server/uploads/
-
-# cross-env
-*.DS_Store  # for macOS
-Thumbs.db   # for WindowsS
-
-# dependencies
-/server/node_modules
-/client/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
 # misc
 .env
-client/.DS_Store
-client/.env
+
+# IDE-specific files
+.vscode/
+.idea/
+*.iml
+*.sw?
+*.sublime-project
+*.sublime-workspace

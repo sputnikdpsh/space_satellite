@@ -1,0 +1,88 @@
+# Node modules
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Dependency directories
+/.pnp
+.pnp.js
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# Output of 'npm pack'
+*.tgz
+
+# Coverage directory used by tools like jest
+/coverage/
+
+# Build outputs
+dist/
+build/
+uploads/
+
+# Environment variables
+.env
+.env.test
+.env.development
+.env.production
+.env.local
+
+# Debugging
+*.swp
+*.swo
+*.bak
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.iml
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# npm cache
+.npm
+
+# Logs from PM2
+pm2.log
+pm2.pid
+
+# Optional NPM lockfile
+package-lock.json
+yarn.lock
+
+# Test files
+*.spec.js
+*.test.js
+*.spec.ts
+*.test.ts
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Docker files
+docker-compose.override.yml
+
+# Local backups
+*.bak
+*.tmp
+
+# cross-env
+*.DS_Store  # for macOS
+Thumbs.db   # for WindowsS

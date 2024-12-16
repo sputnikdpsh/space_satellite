@@ -1,0 +1,19 @@
+.loader {
+  width: 100px;
+  height: 100px;
+  animation: rotate 1s infinite linear;
+  border: 5px dashed teal;
+  border-radius: 50%;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(2);
+  }
+  to {
+    transform: rotate(360deg) scale(1);
+  }
+}
