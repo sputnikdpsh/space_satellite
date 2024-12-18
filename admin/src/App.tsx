@@ -1,11 +1,5 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
-import LoginForm from "./components/LoginForm";
-import RegistrationForm from "./components/RegistrationForm";
+import React, { createContext } from 'react';
 import {observer} from "mobx-react-lite";
-import {IUser} from "./models/IUser";
-
-import {GetUsers} from "./models/GetUsers";
-import Auth from "./pages/Auth";
 import AppRouter from "./components/AppRouter";
 import {BrowserRouter} from "react-router-dom";
 import Store from "./store/store";
@@ -22,16 +16,6 @@ export const Context = createContext<StoreState>({
 });
 
 function App() {
-    // const [isAuth, setIsAuth] = useState(false);
-    // const [isLoading, setLoading] = useState(true);
-    //
-    // useEffect(() => {
-    //     if (localStorage.getItem('auth')) {
-    //         setIsAuth(true);
-    //     }
-    //     setLoading(false);
-    // }, []);
-
     return (
         <Context.Provider value={
             {store}

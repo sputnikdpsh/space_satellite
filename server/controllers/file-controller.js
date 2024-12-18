@@ -21,6 +21,19 @@ class FileController {
         }
     }
 
+    async sendFile (req, res, next){
+        try {
+            const { category, directory, filename } = req.params;
+            await fileService.sendFile(res, category, directory, filename);
+        } catch (error) {
+            if (error.code === 'ENOENT') {
+                res.status(404).json({ error: 'Файл не найден' });
+            } else {
+                next(error);
+            }
+        }
+    }
+
     async getFiles(req, res, next) {
         try {
             const hashedDirectory = req.headers['directory'];
